@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "217810056780",
+    "project_id": "fir-meetup-6d164",
+    "storage_bucket": "fir-meetup-6d164.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217810056780:android:2599478772b3b0212126e9",
+        "android_client_info": {
+          "package_name": "com.example.dars64_statemanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgrgCbUXEyikxKbjpXkfL9moqNxhBqw9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217810056780:android:b5f7b888b3ca215c2126e9",
+        "android_client_info": {
+          "package_name": "com.example.ffirebae"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgrgCbUXEyikxKbjpXkfL9moqNxhBqw9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217810056780:android:26de80ee50171b932126e9",
+        "android_client_info": {
+          "package_name": "ffirebase.itwithakmaljon.uz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgrgCbUXEyikxKbjpXkfL9moqNxhBqw9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
