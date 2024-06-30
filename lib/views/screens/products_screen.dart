@@ -1,7 +1,7 @@
 import 'package:dars64_statemanagement/controllers/products_controller.dart';
 import 'package:dars64_statemanagement/models/product.dart';
 import 'package:dars64_statemanagement/views/screens/cart_screen.dart';
-import 'package:dars64_statemanagement/views/widgets/add_product_dialog.dart';
+import 'package:dars64_statemanagement/views/widgets/manage_product_dialog.dart';
 import 'package:dars64_statemanagement/views/widgets/product_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsController = context.watch<ProductsController>();
-    // Provider.of<ProductsController>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +76,7 @@ class ProductsScreen extends StatelessWidget {
           showDialog(
             context: context,
             builder: (ctx) {
-              return AddProductDialog();
+              return ManageProductDialog();
             },
           );
         },

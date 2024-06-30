@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dars64_statemanagement/models/product.dart';
 import 'package:flutter/material.dart';
 import '../services/products_firebase_services.dart';
 
@@ -10,40 +12,35 @@ class ProductsController extends ChangeNotifier {
     yield* productsFirebaseService.getProducts();
   }
 
-  void addProduct(String title, double price) {
-    int red = Random().nextInt(255);
-    int green = Random().nextInt(255);
-    int blue = Random().nextInt(255);
-    Color color = Color.fromRGBO(red, green, blue, 1);
-
-    productsFirebaseService.addProduct(
+  Future<void> addProduct(
+    String title,
+    double price,
+    File image,
+  ) async {
+    await productsFirebaseService.addProduct(
       title,
       price,
-      color,
+      image,
     );
   }
 
-  void editProduct(
+  Future<void> editProduct(
     String productId,
     String newTitle,
     double newPrice,
-  ) {
-    int red = Random().nextInt(255);
-    int green = Random().nextInt(255);
-    int blue = Random().nextInt(255);
-    Color color = Color.fromRGBO(red, green, blue, 1);
-
-    productsFirebaseService.editProduct(
+    String imageUrl,
+    File? image,
+  ) async {
+    await productsFirebaseService.editProduct(
       productId,
       newTitle,
       newPrice,
-      color,
+      imageUrl,
+      image,
     );
   }
 
-  void deleteProduct(String productId) {
-    productsFirebaseService.deleteProduct(productId);
-
-    notifyListeners();
+  Future<void> deleteProduct(Product product) async {
+    await productsFirebaseService.deleteProduct(product);
   }
 }

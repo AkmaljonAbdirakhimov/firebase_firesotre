@@ -19,6 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void submit() async {
     if (formKey.currentState!.validate()) {
       try {
+        showLoading();
+
         final credential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text,
@@ -42,8 +44,26 @@ class _LoginScreenState extends State<LoginScreen> {
         } else {
           print(e.code);
         }
+      } finally {
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
       }
     }
+  }
+
+  void showLoading() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (ctx) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      },
+    );
   }
 
   @override

@@ -42,8 +42,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       } catch (e) {
         print(e);
+      } finally {
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
       }
     }
+  }
+
+  void showLoading() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (ctx) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      },
+    );
   }
 
   @override

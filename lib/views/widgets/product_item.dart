@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:dars64_statemanagement/controllers/cart_controller.dart';
 import 'package:dars64_statemanagement/controllers/products_controller.dart';
 import 'package:dars64_statemanagement/models/product.dart';
-import 'package:dars64_statemanagement/views/widgets/add_product_dialog.dart';
+import 'package:dars64_statemanagement/views/widgets/manage_product_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +13,20 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
+  void showLoading() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (ctx) {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
@@ -25,13 +37,13 @@ class _ProductItemState extends State<ProductItem> {
         showDialog(
           context: context,
           builder: (ctx) {
-            return AddProductDialog(product: product);
+            return ManageProductDialog(product: product);
           },
         );
       },
-      leading: Container(
+      leading: SizedBox(
         width: 60,
-        color: product.color,
+        child: Image.network(product.imageUrl),
       ),
       title: Text(
         product.title,
@@ -44,7 +56,7 @@ class _ProductItemState extends State<ProductItem> {
         "\$${product.price}",
       ),
       trailing: Consumer<CartController>(
-        builder: (ctx, cartController, child) {
+        builder: (context, cartController, child) {
           return cartController.isProductInCart(product.id)
               ? Row(
                   mainAxisSize: MainAxisSize.min,
@@ -74,9 +86,54 @@ class _ProductItemState extends State<ProductItem> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        final productsController =
-                            context.read<ProductsController>();
-                        productsController.deleteProduct(product.id);
+                        showDialog(
+                          context: context,
+                          builder: (ctx) {
+                            return AlertDialog(
+                              title: const Text("Ishonchingiz komilmi?"),
+                              content: RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(color: Colors.black),
+                                  children: [
+                                    const TextSpan(text: "Siz "),
+                                    TextSpan(
+                                      text: product.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const TextSpan(text: "ni o'chirmoqchisiz"),
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Bekor Qilish"),
+                                ),
+                                FilledButton(
+                                  onPressed: () async {
+                                    final productsController =
+                                        Provider.of<ProductsController>(context,
+                                            listen: false);
+
+                                    showLoading();
+                                    await productsController
+                                        .deleteProduct(product);
+
+                                    if (ctx.mounted) {
+                                      Navigator.pop(ctx);
+                                      Navigator.pop(ctx);
+                                    }
+                                  },
+                                  child: const Text("O'chirish"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       icon: const Icon(
                         Icons.delete,
